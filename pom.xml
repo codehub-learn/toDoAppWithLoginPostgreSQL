@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>gr.athtech</groupId>
-    <artifactId>toDoAppWithLogin</artifactId>
+    <artifactId>toDoAppWithLoginPostgreSQL</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>toDoAppWithLogin</name>
+    <name>toDoAppWithLoginPostgreSQL</name>
     <description>simple application</description>
 
     <properties>
