@@ -1,8 +1,8 @@
 package gr.codehub.toDoAppWithLogin.service;
 
 import gr.codehub.toDoAppWithLogin.base.AbstractLogEntity;
+import gr.codehub.toDoAppWithLogin.model.security.LoginUser;
 import gr.codehub.toDoAppWithLogin.model.security.SessionUser;
-import gr.codehub.toDoAppWithLogin.model.security.User;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -36,8 +36,8 @@ public class SessionService extends AbstractLogEntity {
      * @param session: the current session with a user
      * @return : returns a User that only contains the Id saved in an attribute of the session
      */
-    public User getUserWithSessionId(HttpSession session) {
-        return User.builder().id((long) session.getAttribute("userId")).build();
+    public LoginUser getUserWithSessionId(HttpSession session) {
+        return LoginUser.builder().id((long) session.getAttribute("userId")).build();
     }
 
     /**

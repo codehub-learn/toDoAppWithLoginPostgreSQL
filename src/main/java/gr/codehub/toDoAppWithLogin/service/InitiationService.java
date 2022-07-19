@@ -1,8 +1,8 @@
 package gr.codehub.toDoAppWithLogin.service;
 
 import gr.codehub.toDoAppWithLogin.base.AbstractLogEntity;
+import gr.codehub.toDoAppWithLogin.model.security.LoginUser;
 import gr.codehub.toDoAppWithLogin.model.security.Role;
-import gr.codehub.toDoAppWithLogin.model.security.User;
 import gr.codehub.toDoAppWithLogin.repository.RoleRepository;
 import gr.codehub.toDoAppWithLogin.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,12 +26,12 @@ public class InitiationService extends AbstractLogEntity {
         logger.info("Checking if database has been initialiased already");
         if (!userRepository.findFirstByUsername(ADMIN_USERNAME).isPresent()) {
             logger.info("Database is empty, initiating setup.");
-            User user = new User();
-            user.setUsername(ADMIN_USERNAME);
+            LoginUser loginUser = new LoginUser();
+            loginUser.setUsername(ADMIN_USERNAME);
             //encrypt password
             BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
             String encodedPassword = bCryptPasswordEncoder.encode(ADMIN_PASSWORD);
-            user.setPassword(encodedPassword);
+            loginUser.setPassword(encodedPassword);
             //create role for user
             List<Role> allRoles = new ArrayList<>();
             Role adminRole = new Role();
@@ -43,8 +43,8 @@ public class InitiationService extends AbstractLogEntity {
             userRole.setRole("USER");
             allRoles.add(userRole);
             roleRepository.saveAll(allRoles);
-            user.setRoles(allRoles);
-            userRepository.save(user);
+            loginUser.setRoles(allRoles);
+            userRepository.save(loginUser);
         }
         logger.info("Database successfully initialised.");
     }

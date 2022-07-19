@@ -1,6 +1,6 @@
 package gr.codehub.toDoAppWithLogin.repository;
 
-import gr.codehub.toDoAppWithLogin.model.security.User;
+import gr.codehub.toDoAppWithLogin.model.security.LoginUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,9 +11,9 @@ import java.util.Set;
 
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<LoginUser, Long> {
 
-    Optional<User> findFirstByUsername(String username);
+    Optional<LoginUser> findFirstByUsername(String username);
 
     /**
      * custom query made to fetch all the users but the admin from the repository
@@ -22,6 +22,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
      *                  for example
      * @return : a set of all users fulfilling the requirements specified above
      */
-    @Query("SELECT user FROM User user JOIN user.roles role WHERE role.role=:roleName")
-    Set<User> findByUserRole(@Param("roleName") String roleName);
+    @Query("SELECT user FROM LoginUser user JOIN user.roles role WHERE role.role=:roleName")
+    Set<LoginUser> findByUserRole(@Param("roleName") String roleName);
 }

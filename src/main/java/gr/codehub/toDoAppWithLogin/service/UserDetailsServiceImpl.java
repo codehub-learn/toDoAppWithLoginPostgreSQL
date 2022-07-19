@@ -4,7 +4,7 @@ package gr.codehub.toDoAppWithLogin.service;
 import gr.codehub.toDoAppWithLogin.base.AbstractLogEntity;
 import gr.codehub.toDoAppWithLogin.model.security.Role;
 import gr.codehub.toDoAppWithLogin.model.security.SessionUser;
-import gr.codehub.toDoAppWithLogin.model.security.User;
+import gr.codehub.toDoAppWithLogin.model.security.LoginUser;
 import gr.codehub.toDoAppWithLogin.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -42,16 +42,16 @@ public class UserDetailsServiceImpl extends AbstractLogEntity implements UserDet
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
         //Search for the user within the repository, and if the user doesn't exist, throw an exception
-        User repoUser =
+        LoginUser repoLoginUser =
                 userRepository.findFirstByUsername(email).orElseThrow(() -> new UsernameNotFoundException("User does not exist"));
         //Map the authority list with the spring security list
         List grantList = new ArrayList();
-        for (Role role : repoUser.getRoles()) {
+        for (Role role : repoLoginUser.getRoles()) {
             // ROLE:USER or ROLE:ADMIN or BOTH
             GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getRole());
             grantList.add(grantedAuthority);
         }
-        SessionUser user = new SessionUser(repoUser.getId(), repoUser.getUsername(), repoUser.getPassword(), enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, grantList);
+        SessionUser user = new SessionUser(repoLoginUser.getId(), repoLoginUser.getUsername(), repoLoginUser.getPassword(), enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, grantList);
         return user;
     }
 }
