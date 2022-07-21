@@ -1,7 +1,6 @@
 package gr.codehub.toDoAppWithLogin.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.concurrent.ThreadLocalRandom;
 
