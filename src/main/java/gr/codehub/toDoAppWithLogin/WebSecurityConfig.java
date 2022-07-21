@@ -37,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers(resources).permitAll()
-                .antMatchers("/login", "/error", "/actuator/**").permitAll()
+                .antMatchers("/login", "/error", "/actuator/**", "/id").permitAll()
                 //.antMatchers("/**").permitAll() //remove this to make security work again !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 .antMatchers("/admin/*", "/**").access("hasAuthority('ADMIN')")
                 .antMatchers("/*").access("hasAuthority('USER') or hasAuthority('ADMIN')")
